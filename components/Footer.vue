@@ -5,7 +5,7 @@ footer.footer
       .footer__column.footer__column--company
         .footer__logo
           NuxtLink(to="/")
-            img.footer__logo-img(:src="'assets/icons/logo.svg'")
+            img.footer__logo-img(:src="'/logo.svg'")
           .footer__logo-text
             .footer__company-name ООО «ТОРГОВЫЙ ДОМ «ЛОС-БИО»»
             .footer__legal

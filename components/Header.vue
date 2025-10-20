@@ -25,7 +25,7 @@
       .header__main-content
         .header__logo
           NuxtLink(to="/")
-            img(:src="'assets/icons/logo.svg'")
+            img(:src="'/logo.svg'")
         nav.header__nav-list
             NuxtLink.header__nav-link(to='/about') О компании
             NuxtLink.header__nav-link(to='/projects') Проекты
