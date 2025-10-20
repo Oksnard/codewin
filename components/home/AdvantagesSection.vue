@@ -35,10 +35,6 @@ await contentStore.ensureHomepageData()
   padding: 80px 0;
 }
 
-.container {
-  @include container;
-}
-
 .advantages__title {
   font-size: 36px;
   font-weight: 700;

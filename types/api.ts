@@ -88,9 +88,21 @@ export interface ProjectDescription {
 }
 
 export interface ApiProjectDetail extends ApiProjectCard {
-  contentHtml?: string | null
-  gallery?: string[]
-  description?: ProjectDescription | null
+  slug?: string
+  description?: ProjectDescription
+  short_description?: ProjectDescription
+  title?: ProjectDescription
+  id?: number
+  photos?: Array<{
+    id: number
+    catalog: string
+    name: string
+    project_files: {
+      id: number
+      fileId: number
+      projectId: number
+    }
+  }>
   works?: string
   equipment?: string
   customer?: string

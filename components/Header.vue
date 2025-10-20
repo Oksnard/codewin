@@ -1,72 +1,69 @@
 <template lang="pug">
- header.header
-  // * Top information bar
-  .header__info
-    .container
-      .header__info-content
-        .header__contact-item
-          Icon.header__icon(name='location' size='16')
-          span г. Красноярск, ул. Телевизорная 1, стр. 14, оф. 204
-        .header__contact-item
-          Icon.header__icon(name='phone' size='16')
-          span +7 (391) 209 57-57
-        .header__contact-item
-          Icon.header__icon(name='phone' size='16')
-          span +7 (391) 215 54-33
-        .header__contact-item
-          Icon.header__icon(name='mail' size='16')
-          span los-bio@mail.ru
-        .header__callback
-          Icon.header__icon(name='refresh' size='16')
-          span Заказать звонок
-  // * Main navigation bar
-  .header__main
-    .container
-      .header__main-content
-        .header__logo
-          NuxtLink(to="/")
-            img(:src="'/logo.svg'")
-        nav.header__nav-list
-            NuxtLink.header__nav-link(to='/about') О компании
-            NuxtLink.header__nav-link(to='/projects') Проекты
-            NuxtLink.header__nav-link.header__nav-link--dropdown(to='/catalog')
-              span Каталог
-              span.header__dropdown-arrow &#x25BC;
-            NuxtLink.header__nav-link(to='/contacts') Контакты
-        .header__actions
-          Button.header__cta-button(
-            variant="primary"
-            size="md"
-            label="Получить КП"
-            @click="handleCtaClick"
-          )
-          // * Mobile menu toggle
-          button.header__mobile-toggle(:class="{ 'header__mobile-toggle--active': isMobileMenuOpen }" @click='toggleMobileMenu')
-            span.header__mobile-toggle-line
-            span.header__mobile-toggle-line
-            span.header__mobile-toggle-line
-  // * Mobile menu
-  .header__mobile-menu(v-if='isMobileMenuOpen')
-    .container
-      .header__mobile-nav
-        NuxtLink.header__mobile-link(to='/about') О компании
-        NuxtLink.header__mobile-link(to='/projects') Проекты
-        NuxtLink.header__mobile-link(to='/contacts') Контакты
-        .header__mobile-cta
-          Button.header__mobile-cta-button(
-            variant="primary"
-            size="lg"
-            label="Получить КП"
-            full-width
-            @click="handleCtaClick"
-          )
+header.header
+// * Top information bar
+.header__info
+  .container
+    .header__info-content
+      .header__contact-item
+        Icon.header__icon(name='location' size='16')
+        span г. Красноярск, ул. Телевизорная 1, стр. 14, оф. 204
+      .header__contact-item
+        Icon.header__icon(name='phone' size='16')
+        span +7 (391) 209 57-57
+      .header__contact-item
+        Icon.header__icon(name='phone' size='16')
+        span +7 (391) 215 54-33
+      .header__contact-item
+        Icon.header__icon(name='mail' size='16')
+        span los-bio@mail.ru
+      .header__callback
+        Icon.header__icon(name='refresh' size='16')
+        span Заказать звонок
+// * Main navigation bar
+.header__main
+  .container
+    .header__main-content
+      .header__logo
+        NuxtLink(to="/")
+          img(:src="'/logo.svg'")
+      nav.header__nav-list
+          NuxtLink.header__nav-link(to='/about') О компании
+          NuxtLink.header__nav-link(to='/projects') Проекты
+          NuxtLink.header__nav-link.header__nav-link--dropdown(to='/catalog')
+            span Каталог
+            span.header__dropdown-arrow &#x25BC;
+          NuxtLink.header__nav-link(to='/contacts') Контакты
+      .header__actions
+        Button.header__cta-button(
+          variant="primary"
+          size="md"
+          label="Получить КП"
+          @click="handleCtaClick"
+        )
+        // * Mobile menu toggle
+        button.header__mobile-toggle(:class="{ 'header__mobile-toggle--active': isMobileMenuOpen }" @click='toggleMobileMenu')
+          span.header__mobile-toggle-line
+          span.header__mobile-toggle-line
+          span.header__mobile-toggle-line
+// * Mobile menu
+.header__mobile-menu(v-if='isMobileMenuOpen')
+  .container
+    .header__mobile-nav
+      NuxtLink.header__mobile-link(to='/about') О компании
+      NuxtLink.header__mobile-link(to='/projects') Проекты
+      NuxtLink.header__mobile-link(to='/contacts') Контакты
+      .header__mobile-cta
+        Button.header__mobile-cta-button(
+          variant="primary"
+          size="lg"
+          label="Получить КП"
+          full-width
+          @click="handleCtaClick"
+        )
 
 </template>
 
 <script setup lang="ts">
-// * Components are auto-imported by Nuxt
-
-// * Explicit imports for TypeScript linting
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 
@@ -111,10 +108,6 @@ onUnmounted(() => {
   position: sticky;
   top: 0;
   z-index: 1000;
-
-  .container {
-    @include container;
-  }
 
   &__info {
     height: 48px;

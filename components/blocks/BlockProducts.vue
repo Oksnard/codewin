@@ -42,7 +42,7 @@ defineProps<{
   transition: all 0.3s ease;
 
   &:hover {
-    background: darken($color-accent, 10%);
+    background: $color-accent;
     transform: translateX(4px);
   }
 }

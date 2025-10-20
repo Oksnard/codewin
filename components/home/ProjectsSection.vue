@@ -51,10 +51,6 @@ function getProjectDescription(project: ApiProjectCard): string {
   padding: 80px 0;
 }
 
-.container {
-  @include container;
-}
-
 .projects__title {
   font-size: 36px;
   font-weight: 700;

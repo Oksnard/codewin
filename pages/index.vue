@@ -1,9 +1,8 @@
-<template>
-  <main class="home">
-    <HeroSection />
-    <AdvantagesSection />
-    <ProjectsSection />
-  </main>
+<template lang="pug">
+main.home
+  HeroSection
+  AdvantagesSection
+  ProjectsSection
 </template>
 
 <script setup lang="ts">
