@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  click: [event: MouseEvent]
+  click: [event: MouseEvent | TouchEvent]
 }>()
 
 const slots = useSlots()
@@ -72,80 +72,80 @@ const handleClick = (event: MouseEvent) => {
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  
+
   &:focus {
     outline: 2px solid $color-header-blue;
     outline-offset: 2px;
   }
-  
+
   &--disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
+
   // * Variants
   &--primary {
     background: $color-header-blue;
     color: $color-white;
-    
+
     &:hover:not(.button--disabled) {
       background: $color-header-blue-dark;
     }
   }
-  
+
   &--secondary {
     background: transparent;
     color: $color-white;
     border: 1px solid $color-white;
-    
+
     &:hover:not(.button--disabled) {
       background: $color-white;
       color: $color-primary;
     }
   }
-  
+
   &--outline {
     background: transparent;
     color: $color-header-blue;
     border: 1px solid $color-header-blue;
-    
+
     &:hover:not(.button--disabled) {
       background: $color-header-blue;
       color: $color-white;
     }
   }
-  
+
   // * Sizes
   &--sm {
     padding: 8px 16px;
     font-size: 14px;
     gap: 6px;
   }
-  
+
   &--md {
     padding: 12px 24px;
     font-size: 16px;
     gap: 8px;
   }
-  
+
   &--lg {
     padding: 16px 32px;
     font-size: 18px;
     gap: 10px;
   }
-  
+
   &--icon-only {
     padding: 12px;
-    
+
     &.button--sm {
       padding: 8px;
     }
-    
+
     &.button--lg {
       padding: 16px;
     }
   }
-  
+
   &--full-width {
     width: 100%;
   }

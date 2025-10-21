@@ -27,11 +27,8 @@ const contentStore = useContentStore()
 await contentStore.ensureHomepageData()
 
 function getProjectImage(project: ApiProjectCard): string {
-  if (project.cover) {
-    return buildImage(project.cover) || ''
-  }
   if (project.photos && project.photos.length > 0) {
-    return buildImage(`/projects/${project.photos[0].name}`) || ''
+    return buildImage(`/files/projects/${project.photos[0].name}`) || ''
   }
   return ''
 }

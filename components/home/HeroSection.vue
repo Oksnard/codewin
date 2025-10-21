@@ -1,23 +1,23 @@
 <template lang="pug">
-section.hero
-  ClientOnly
-    .hero__swiper(ref="swiperRef")
-      .swiper-wrapper
-        .hero__slide.swiper-slide(v-for="s in slides" :key="s.id")
-          .hero__content
-            .hero__text
-              h1.hero__title {{ s.title }}
-              p.hero__description(v-if="s.subtitle") {{ s.subtitle }}
-              p.hero__description(v-else) Производим автономные канализации, очистные сооружения, накопительные ёмкости и различные комплектующие к ним.
-              Button.hero__cta(
-                variant="primary",
-                size="lg",
-                label="Перейти в каталог",
-                @click="handleCtaClick"
-              )
-            .hero__image-wrapper
-              img.hero__image(:src="imageSrc(s.image)" :alt="s.title")
-      .hero__pagination.swiper-pagination
+  section.hero
+    ClientOnly
+      .hero__swiper(ref="swiperRef")
+        .swiper-wrapper
+          .hero__slide.swiper-slide(v-for="s in slides" :key="s.id")
+            .hero__content
+              .hero__text
+                h1.hero__title {{ s.title }}
+                p.hero__description(v-if="s.subtitle") {{ s.subtitle }}
+                p.hero__description(v-else) Производим автономные канализации, очистные сооружения, накопительные ёмкости и различные комплектующие к ним.
+                Button.hero__cta(
+                  variant="primary",
+                  size="lg",
+                  label="Перейти в каталог",
+                  @click="handleCtaClick"
+                )
+              .hero__image-wrapper
+                img.hero__image(:src="buildImage(s.image)" :alt="s.title")
+        .hero__pagination.swiper-pagination
 </template>
 
 <script setup lang="ts">
@@ -28,7 +28,6 @@ import { Swiper } from "swiper";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import type { ApiSlideItem } from "@/types/api";
 import { buildImage } from "@/utils/api";
 
 const router = useRouter();
@@ -37,10 +36,6 @@ const swiperRef = ref<HTMLElement>();
 let swiper: Swiper | null = null;
 
 const slides = computed(() => contentStore.state.slides || []);
-
-function imageSrc(path: string) {
-  return buildImage(path) || "";
-}
 
 const handleCtaClick = () => {
   router.push("/catalog");
@@ -51,7 +46,7 @@ onMounted(async () => {
   await contentStore.ensureHomepageData();
   await nextTick();
 
-  if (swiperRef.value) {
+  if (swiperRef.value && slides.value.length > 0) {
     swiper = new Swiper(swiperRef.value, {
       modules: [Pagination, Autoplay],
       loop: true,
@@ -62,8 +57,8 @@ onMounted(async () => {
       pagination: {
         el: ".hero__pagination",
         clickable: true,
-        bulletClass: "swiper-pagination-bullet hero__pagination-bullet",
-        bulletActiveClass: "swiper-pagination-bullet-active hero__pagination-bullet--active",
+        bulletClass: "hero__pagination-bullet",
+        bulletActiveClass: "hero__pagination-bullet--active",
       },
       speed: 800,
       effect: "fade",
@@ -79,6 +74,8 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/scss/abstracts/_mixins" as *;
+
 .hero {
   background: $color-primary;
   color: $color-text-primary;
@@ -104,186 +101,187 @@ onMounted(async () => {
   @include respond(max-sm) {
     min-height: 400px;
   }
-}
 
-.hero__swiper {
-  width: 100%;
-  height: 100%;
-  min-height: 600px;
+  &__swiper {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
 
-  @include respond(md) {
-    min-height: 700px;
+    @include respond(md) {
+      min-height: 700px;
+    }
+
+    @include respond(lg) {
+      min-height: 800px;
+    }
+
+    @include respond(max-md) {
+      min-height: 500px;
+    }
+
+    @include respond(max-sm) {
+      min-height: 400px;
+    }
   }
 
-  @include respond(lg) {
-    min-height: 800px;
+  &__slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    background: $color-primary;
+    padding: 0;
   }
 
-  @include respond(max-md) {
-    min-height: 500px;
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 80px 0;
+
+    @include container;
+
+    @include respond(max-lg) {
+      gap: 40px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @include respond(max-md) {
+      padding: 60px 0 40px 0;
+    }
+
+    @include respond(max-sm) {
+      padding: 40px 0 30px 0;
+      gap: 30px;
+    }
   }
 
-  @include respond(max-sm) {
-    min-height: 400px;
-  }
-}
-
-.hero__slide {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-  background: $color-primary;
-  padding: 0;
-}
-
-.hero__content {
-  display: flex;
-  justify-content: space-between;
-  gap: 60px;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 80px 0;
-
-  @include container;
-
-  @include respond(max-lg) {
-    gap: 40px;
+  &__text {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-  }
-
-  @include respond(max-md) {
-    padding: 60px 0 40px 0;
-  }
-
-  @include respond(max-sm) {
-    padding: 40px 0 30px 0;
-    gap: 30px;
-  }
-}
-
-.hero__text {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 24px;
-  max-width: 100%;
-
-  @include respond(max-lg) {
-    order: 2;
-  }
-}
-
-.hero__title {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: $color-text-primary;
-  margin: 0;
-
-  @include respond(max-lg) {
-    font-size: 36px;
-    text-align: center;
-  }
-
-  @include respond(max-md) {
-    font-size: 28px;
-  }
-}
-
-.hero__description {
-  font-size: 18px;
-  line-height: 1.6;
-  color: $color-text-primary;
-  opacity: 0.9;
-  max-width: 400px;
-  margin: 0;
-
-  @include respond(max-lg) {
+    flex: 1;
+    gap: 24px;
     max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
+
+    @include respond(max-lg) {
+      order: 2;
+    }
   }
 
-  @include respond(max-md) {
-    font-size: 16px;
-  }
-}
+  &__title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $color-text-primary;
+    margin: 0;
 
-.hero__cta {
-  align-self: flex-start;
+    @include respond(max-lg) {
+      font-size: 36px;
+      text-align: center;
+    }
 
-  @include respond(max-lg) {
-    align-self: center;
-  }
-}
-
-.hero__image-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  width: 100%;
-
-  @include respond(max-lg) {
-    order: 1;
-    min-height: 300px;
+    @include respond(max-md) {
+      font-size: 28px;
+    }
   }
 
-  @include respond(max-md) {
-    min-height: 250px;
+  &__description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: $color-text-primary;
+    opacity: 0.9;
+    max-width: 400px;
+    margin: 0;
+
+    @include respond(max-lg) {
+      max-width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    @include respond(max-md) {
+      font-size: 16px;
+    }
   }
 
-  @include respond(max-sm) {
-    min-height: 200px;
-  }
-}
+  &__cta {
+    align-self: flex-start;
 
-.hero__image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.hero__pagination {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-
-  @include respond(max-sm) {
-    bottom: 20px;
-  }
-}
-
-.hero__pagination-bullet {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 0 6px;
-
-  @include respond(max-sm) {
-    width: 10px;
-    height: 10px;
-    margin: 0 4px;
+    @include respond(max-lg) {
+      align-self: center;
+    }
   }
 
-  &--active {
-    background: $color-accent;
-    transform: scale(1.2);
+  &__image-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    width: 100%;
+
+    @include respond(max-lg) {
+      order: 1;
+      min-height: 300px;
+    }
+
+    @include respond(max-md) {
+      min-height: 250px;
+    }
+
+    @include respond(max-sm) {
+      min-height: 200px;
+    }
   }
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.7);
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  &__pagination {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    @include respond(max-sm) {
+      bottom: 20px;
+    }
+  }
+
+  :deep(.hero__pagination-bullet) {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+    display: inline-block;
+    background: #ffffff20;
+    position: relative;
+
+    @include respond(max-sm) {
+      width: 10px;
+      height: 10px;
+      margin: 0 4px;
+    }
+
+    &.hero__pagination-bullet--active {
+      background: $color-accent;
+      box-shadow: 0 0 0 10px rgba(33, 150, 243, 0.2);
+    }
+
+    &:hover {
+      background: #ffffff40;
+    }
   }
 }
 </style>

@@ -56,11 +56,9 @@ const imageUrls = {
 
 const imageUrl = computed(() => {
   if (!props.image) return null;
-  // Если пришел внешний абсолютный URL, используем его напрямую
   if (typeof props.image === 'string' && (props.image.startsWith('http://') || props.image.startsWith('https://'))) {
     return props.image;
   }
-  // Иначе пробуем сопоставить с локальными ключами
   return imageUrls[props.image as keyof typeof imageUrls] || null;
 });
 </script>

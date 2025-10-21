@@ -1,25 +1,23 @@
 <template lang="pug">
 header.header
-// * Top information bar
 .header__info
   .container
     .header__info-content
       .header__contact-item
-        Icon.header__icon(name='location' size='16')
+        Icon.header__icon(name='location' size='24')
         span г. Красноярск, ул. Телевизорная 1, стр. 14, оф. 204
       .header__contact-item
-        Icon.header__icon(name='phone' size='16')
+        Icon.header__icon(name='phone' size='24')
         span +7 (391) 209 57-57
       .header__contact-item
-        Icon.header__icon(name='phone' size='16')
+        Icon.header__icon(name='phone' size='24')
         span +7 (391) 215 54-33
       .header__contact-item
-        Icon.header__icon(name='mail' size='16')
+        Icon.header__icon(name='mail' size='24')
         span los-bio@mail.ru
       .header__callback
-        Icon.header__icon(name='refresh' size='16')
+        Icon.header__icon(name='refresh' size='24')
         span Заказать звонок
-// * Main navigation bar
 .header__main
   .container
     .header__main-content
@@ -40,12 +38,10 @@ header.header
           label="Получить КП"
           @click="handleCtaClick"
         )
-        // * Mobile menu toggle
         button.header__mobile-toggle(:class="{ 'header__mobile-toggle--active': isMobileMenuOpen }" @click='toggleMobileMenu')
           span.header__mobile-toggle-line
           span.header__mobile-toggle-line
           span.header__mobile-toggle-line
-// * Mobile menu
 .header__mobile-menu(v-if='isMobileMenuOpen')
   .container
     .header__mobile-nav
@@ -241,10 +237,6 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
 
-    @include respond(max-md) {
-      display: none;
-    }
-
     &-list {
       display: flex;
       align-items: center;
@@ -252,6 +244,10 @@ onUnmounted(() => {
       max-width: 470px;
       width: 100%;
       justify-content: space-between;
+
+      @include respond(max-md) {
+        display: none;
+      }
 
       @include respond(lg) {
         gap: 24px;
@@ -320,7 +316,7 @@ onUnmounted(() => {
     &--active {
       .header__mobile-toggle-line {
         &:nth-child(1) {
-          transform: rotate(45deg) translate(6px, 6px);
+          transform: rotate(45deg) translate(3px, 3px);
         }
 
         &:nth-child(2) {

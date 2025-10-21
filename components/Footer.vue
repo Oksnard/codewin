@@ -60,15 +60,12 @@ footer.footer
 </template>
 
 <script setup lang="ts">
-// * Components are auto-imported by Nuxt
-
 const emit = defineEmits<{
   ctaClick: []
 }>()
 
 const handleCtaClick = () => {
   emit('ctaClick')
-  // * Handle CTA action
 }
 </script>
 

@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-// * Card component is auto-imported by Nuxt
 import { useContentStore } from '@/stores/content'
 
 const contentStore = useContentStore()

@@ -1,44 +1,38 @@
 <template lang="pug">
-  .gallery(v-if="photos && photos.length")
-    .gallery__main
-      .swiper.gallery__swiper-main(ref="mainSwiperRef")
-        .swiper-wrapper
-          .swiper-slide(v-for="(photo, index) in photos" :key="`main-${index}`")
-            .gallery__slide-content
-              img.gallery__image(:src="buildImage(`/projects/${photo.name}`)" :alt="`Slide ${index + 1}`")
-      button.gallery__nav-button.gallery__nav-button--prev(
-        type="button"
-        aria-label="Previous slide"
-        ref="prevButtonRef"
-      )
-        svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
-          path(d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
-      button.gallery__nav-button.gallery__nav-button--next(
-        type="button"
-        aria-label="Next slide"
-        ref="nextButtonRef"
-      )
-        svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
-          path(d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
-    .gallery__thumbnails
-      .swiper.gallery__swiper-thumbs(ref="thumbsSwiperRef")
-        .swiper-wrapper
-          .swiper-slide.gallery__thumbnail-slide(
-            v-for="(photo, index) in photos"
-            :key="`thumb-${index}`"
-            @click="slideTo(index)"
-          )
-            img.gallery__thumbnail(:src="buildImage(`/projects/${photo.name}`)" :alt="`Thumbnail ${index + 1}`")
+.gallery(v-if="photos && photos.length")
+  .gallery__main
+    .swiper.gallery__swiper-main(ref="mainSwiperRef")
+      .swiper-wrapper
+        .swiper-slide(v-for="(photo, index) in photos" :key="`main-${index}`")
+          .gallery__slide-content
+            img.gallery__image(:src="buildImage(`/files/projects/${photo.name}`)" :alt="`Slide ${index + 1}`")
+    Button.gallery__nav-button.gallery__nav-button--next(
+      variant="primary"
+      size="md"
+      label="Следующее фото"
+      aria-label="Следующее фото"
+      ref="nextButtonRef"
+      @click="mainSwiper?.slideNext()"
+    )
+  .gallery__thumbnails
+    .swiper.gallery__swiper-thumbs(ref="thumbsSwiperRef")
+      .swiper-wrapper
+        .swiper-slide.gallery__thumbnail-slide(
+          v-for="(photo, index) in photos"
+          :key="`thumb-${index}`"
+          @click="slideTo(index)"
+        )
+          img.gallery__thumbnail(:src="buildImage(`/files/projects/${photo.name}`)" :alt="`Thumbnail ${index + 1}`")
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import type Swiper from 'swiper'
-import { Navigation, Thumbs, FreeMode } from 'swiper/modules'
+import { Thumbs, FreeMode } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/thumbs'
-import 'swiper/css/navigation'
 import 'swiper/css/free-mode'
+import { buildImage } from "@/utils/api";
 
 interface Props {
   photos: Array<{
@@ -81,9 +75,9 @@ onMounted(async () => {
 
   try {
     const SwiperClass = (await import('swiper')).default
-    const { Navigation: Nav, Thumbs: ThumbsModule, FreeMode: FreeModeModule } = await import('swiper/modules')
+    const { Thumbs: ThumbsModule, FreeMode: FreeModeModule } = await import('swiper/modules')
 
-    SwiperClass.use([Nav, ThumbsModule, FreeModeModule])
+    SwiperClass.use([ThumbsModule, FreeModeModule])
 
     thumbsSwiper = new SwiperClass(thumbsSwiperRef.value, {
       modules: [FreeModeModule, ThumbsModule],
@@ -96,14 +90,10 @@ onMounted(async () => {
     })
 
     mainSwiper = new SwiperClass(mainSwiperRef.value, {
-      modules: [Nav, ThumbsModule],
+      modules: [ThumbsModule],
       spaceBetween: 0,
       slidesPerView: 1,
       loop: true,
-      navigation: {
-        nextEl: nextButtonRef.value,
-        prevEl: prevButtonRef.value,
-      },
       thumbs: {
         swiper: thumbsSwiper,
       },
@@ -137,7 +127,7 @@ onUnmounted(() => {
   &__main {
     position: relative;
     width: 100%;
-    height: 400px; // Фиксированная высота вместо aspect-ratio
+    height: 400px;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 16px;
@@ -177,44 +167,14 @@ onUnmounted(() => {
 
   &__nav-button {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 6px;
+    bottom: 6px;
     z-index: 10;
-    background: rgba(33, 150, 243, 0.9);
-    color: $color-white;
-    border: none;
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background: $color-header-blue;
-    }
-
-    &--prev {
-      left: 16px;
-
-      @include respond(max-sm) {
-        left: 8px;
-        padding: 10px;
-      }
-    }
 
     &--next {
-      right: 16px;
-
       @include respond(max-sm) {
         right: 8px;
-        padding: 10px;
       }
-    }
-
-    svg {
-      display: block;
     }
   }
 

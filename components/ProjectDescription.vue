@@ -4,25 +4,16 @@ section.project-description
     h1.project__title {{ project.title }}
     .project__meta(v-if="project.customer || project.works")
       span.project__meta-item(v-if="project.customer")
-        strong Заказчик:
-        |  {{ project.customer }}
       span.project__meta-item(v-if="project.works")
-        strong Работы:
-        |  {{ project.works }}
     .project-description__content
       template(v-for="block in blocks" :key="block.id")
-        BlockHeader(v-if="block.type === 'header'" :block="block")
-        BlockParagraph(v-else-if="block.type === 'paragraph'" :block="block")
+        BlockParagraph(v-if="block.type === 'paragraph'" :block="block")
         BlockList(v-else-if="block.type === 'list'" :block="block")
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 import type { ApiProjectDetail, ProjectDescriptionBlock } from "@/types/api";
-import BlockHeader from "./blocks/BlockHeader.vue";
-import BlockParagraph from "./blocks/BlockParagraph.vue";
-import BlockList from "./blocks/BlockList.vue";
-import BlockProducts from "./blocks/BlockProducts.vue";
 
 const props = defineProps<{
   project: ApiProjectDetail;
