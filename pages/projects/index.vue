@@ -14,11 +14,19 @@ definePageMeta({ name: 'projects' })
 useHead({
   title: 'Проекты — ЛОС-БИО',
   meta: [
-    { name: 'description', content: 'Наши реализованные проекты и достижения в области биотехнологического оборудования. Посмотрите примеры нашей работы.' },
+    {
+      name: 'description',
+      content:
+        'Наши реализованные проекты и достижения в области биотехнологического оборудования. Посмотрите примеры нашей работы.',
+    },
     { property: 'og:title', content: 'Проекты — ЛОС-БИО' },
-    { property: 'og:description', content: 'Наши реализованные проекты и достижения в области биотехнологического оборудования. Посмотрите примеры нашей работы.' },
-    { property: 'og:type', content: 'website' }
-  ]
+    {
+      property: 'og:description',
+      content:
+        'Наши реализованные проекты и достижения в области биотехнологического оборудования. Посмотрите примеры нашей работы.',
+    },
+    { property: 'og:type', content: 'website' },
+  ],
 })
 
 const contentStore = useContentStore()

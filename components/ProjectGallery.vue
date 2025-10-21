@@ -32,7 +32,7 @@ import { Thumbs, FreeMode } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/thumbs'
 import 'swiper/css/free-mode'
-import { buildImage } from "@/utils/api";
+import { buildImage } from '@/utils/api'
 
 interface Props {
   photos: Array<{
@@ -98,7 +98,6 @@ onMounted(async () => {
         swiper: thumbsSwiper,
       },
     })
-
   } catch (error) {
     console.error('Error initializing gallery swiper:', error)
   }

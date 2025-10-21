@@ -19,48 +19,48 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 interface Props {
-  variant?: "default" | "elevated" | "outlined";
-  padding?: "none" | "sm" | "md" | "lg";
-  title?: string;
-  image?: string;
-  background?: string;
+  variant?: 'default' | 'elevated' | 'outlined'
+  padding?: 'none' | 'sm' | 'md' | 'lg'
+  title?: string
+  image?: string
+  background?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  variant: "default",
-  padding: "md",
-  title: "",
-  image: "",
-  background: "",
-});
+  variant: 'default',
+  padding: 'md',
+  title: '',
+  image: '',
+  background: '',
+})
 
-const cardClass = computed(() => [
-  `card--${props.variant}`,
-  `card--padding-${props.padding}`,
-]);
+const cardClass = computed(() => [`card--${props.variant}`, `card--padding-${props.padding}`])
 
 const cardStyle = computed(() => {
-  const styles: Record<string, string> = {};
+  const styles: Record<string, string> = {}
   if (props.background) {
-    styles.backgroundColor = props.background;
+    styles.backgroundColor = props.background
   }
-  return styles;
-});
+  return styles
+})
 
 const imageUrls = {
-  efficiency: "assets/images/advantages/efficiency.png",
-  production: "assets/images/advantages/production.png",
-  correspondence: "assets/images/advantages/correspondence.png",
-  expertise: "assets/images/advantages/expertise.png",
-} as const;
+  efficiency: 'assets/images/advantages/efficiency.png',
+  production: 'assets/images/advantages/production.png',
+  correspondence: 'assets/images/advantages/correspondence.png',
+  expertise: 'assets/images/advantages/expertise.png',
+} as const
 
 const imageUrl = computed(() => {
-  if (!props.image) return null;
-  if (typeof props.image === 'string' && (props.image.startsWith('http://') || props.image.startsWith('https://'))) {
-    return props.image;
+  if (!props.image) return null
+  if (
+    typeof props.image === 'string' &&
+    (props.image.startsWith('http://') || props.image.startsWith('https://'))
+  ) {
+    return props.image
   }
-  return imageUrls[props.image as keyof typeof imageUrls] || null;
-});
+  return imageUrls[props.image as keyof typeof imageUrls] || null
+})
 </script>
 
 <style lang="scss" scoped>

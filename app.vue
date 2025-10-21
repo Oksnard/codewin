@@ -23,6 +23,3 @@ const handleFooterCta = () => {
   flex: 1;
 }
 </style>
-
-
-

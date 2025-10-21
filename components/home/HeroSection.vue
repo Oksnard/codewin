@@ -21,30 +21,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, computed } from "vue";
-import { useRouter } from "vue-router";
-import { useContentStore } from "@/stores/content";
-import { Swiper } from "swiper";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import { buildImage } from "@/utils/api";
+import { ref, onMounted, nextTick, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useContentStore } from '@/stores/content'
+import { Swiper } from 'swiper'
+import { Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { buildImage } from '@/utils/api'
 
-const router = useRouter();
-const contentStore = useContentStore();
-const swiperRef = ref<HTMLElement>();
-let swiper: Swiper | null = null;
+const router = useRouter()
+const contentStore = useContentStore()
+const swiperRef = ref<HTMLElement>()
+let swiper: Swiper | null = null
 
-const slides = computed(() => contentStore.state.slides || []);
+const slides = computed(() => contentStore.state.slides || [])
 
 const handleCtaClick = () => {
-  router.push("/catalog");
-};
+  router.push('/catalog')
+}
 
 onMounted(async () => {
-  await nextTick();
-  await contentStore.ensureHomepageData();
-  await nextTick();
+  await nextTick()
+  await contentStore.ensureHomepageData()
+  await nextTick()
 
   if (swiperRef.value && slides.value.length > 0) {
     swiper = new Swiper(swiperRef.value, {
@@ -55,26 +55,26 @@ onMounted(async () => {
         disableOnInteraction: false,
       },
       pagination: {
-        el: ".hero__pagination",
+        el: '.hero__pagination',
         clickable: true,
-        bulletClass: "hero__pagination-bullet",
-        bulletActiveClass: "hero__pagination-bullet--active",
+        bulletClass: 'hero__pagination-bullet',
+        bulletActiveClass: 'hero__pagination-bullet--active',
       },
       speed: 800,
-      effect: "fade",
+      effect: 'fade',
       fadeEffect: {
         crossFade: true,
       },
       slidesPerView: 1,
       spaceBetween: 0,
       watchSlidesProgress: true,
-    });
+    })
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/abstracts/_mixins" as *;
+@use '@/assets/scss/abstracts/_mixins' as *;
 
 .hero {
   background: $color-primary;

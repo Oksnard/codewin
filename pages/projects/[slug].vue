@@ -22,88 +22,84 @@ main.project
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
-import { useProjectStore } from "@/stores/project";
-import { buildImage } from "@/utils/api";
+import { useRoute, useRouter } from 'vue-router'
+import { useProjectStore } from '@/stores/project'
+import { buildImage } from '@/utils/api'
 
-definePageMeta({ name: "project" });
+definePageMeta({ name: 'project' })
 
-const router = useRouter();
-const route = useRoute();
-const slug = route.params.slug as string;
-const store = useProjectStore();
+const router = useRouter()
+const route = useRoute()
+const slug = route.params.slug as string
+const store = useProjectStore()
 
-const { data: project, pending, error } = await useAsyncData(
-    `project-${slug}`,
-    async () => {
-      try {
-        const result = await store.fetchBySlug(slug);
-        if (!result) {
-          throw createError({
-            statusCode: 404,
-            statusMessage: "Проект не найден",
-          });
-        }
-        return result;
-      } catch (err) {
-        console.error("Error fetching project:", err);
-        throw err;
+const {
+  data: project,
+  pending,
+  error,
+} = await useAsyncData(
+  `project-${slug}`,
+  async () => {
+    try {
+      const result = await store.fetchBySlug(slug)
+      if (!result) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: 'Проект не найден',
+        })
       }
-    },
-    {
-      server: true,
-      client: true,
+      return result
+    } catch (err) {
+      console.error('Error fetching project:', err)
+      throw err
     }
-);
+  },
+  {
+    server: true,
+    client: true,
+  }
+)
 
 const handleBack = () => {
-  router.back();
-};
+  router.back()
+}
 
 useHead({
   title: computed(() =>
-      project.value
-          ? `${project.value.title} — Проекты — LOS BIO`
-          : "Проект — LOS BIO"
+    project.value ? `${project.value.title} — Проекты — LOS BIO` : 'Проект — LOS BIO'
   ),
   meta: [
     {
-      name: "description",
+      name: 'description',
       content: computed(
-          () =>
-              project.value?.description ||
-              `Проект ${project.value?.title || ""} от ЛОС-БИО`
+        () => project.value?.description || `Проект ${project.value?.title || ''} от ЛОС-БИО`
       ),
     },
     {
-      property: "og:title",
+      property: 'og:title',
       content: computed(() =>
-          project.value
-              ? `${project.value.title} — Проекты — LOS BIO`
-              : "Проект — LOS BIO"
+        project.value ? `${project.value.title} — Проекты — LOS BIO` : 'Проект — LOS BIO'
       ),
     },
     {
-      property: "og:description",
+      property: 'og:description',
       content: computed(
-          () =>
-              project.value?.description ||
-              `Проект ${project.value?.title || ""} от ЛОС-БИО`
+        () => project.value?.description || `Проект ${project.value?.title || ''} от ЛОС-БИО`
       ),
     },
     {
-      property: "og:image",
+      property: 'og:image',
       content: computed(() =>
-          project.value?.photos?.[0] ? buildImage(project.value.photos[0].name) : ""
+        project.value?.photos?.[0] ? buildImage(project.value.photos[0].name) : ''
       ),
     },
-    { property: "og:type", content: "article" },
+    { property: 'og:type', content: 'article' },
   ],
-});
+})
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/abstracts/_mixins" as *;
+@use '@/assets/scss/abstracts/_mixins' as *;
 
 .project {
   &__article {
@@ -323,7 +319,11 @@ useHead({
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

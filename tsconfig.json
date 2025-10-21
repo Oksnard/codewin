@@ -17,14 +17,5 @@
     },
     "skipLibCheck": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.vue",
-    "auto-imports.d.ts",
-    "components.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.vue", "auto-imports.d.ts", "components.d.ts"]
 }
-
-
-

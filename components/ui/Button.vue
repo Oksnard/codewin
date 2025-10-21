@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   disabled: false,
   type: 'button',
-  fullWidth: false
+  fullWidth: false,
 })
 
 const emit = defineEmits<{
@@ -48,8 +48,8 @@ const buttonClass = computed(() => [
   {
     'button--disabled': props.disabled,
     'button--icon-only': props.icon && !props.label && !slots.default,
-    'button--full-width': props.fullWidth
-  }
+    'button--full-width': props.fullWidth,
+  },
 ])
 
 const handleClick = (event: MouseEvent) => {

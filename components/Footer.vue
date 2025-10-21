@@ -122,7 +122,7 @@ const handleCtaClick = () => {
       color: #ffffff;
 
       span {
-        opacity: .4;
+        opacity: 0.4;
       }
     }
   }
@@ -197,7 +197,6 @@ const handleCtaClick = () => {
       }
     }
   }
-
 
   @include respond(max-sm) {
     padding: 40px 0 30px 0;

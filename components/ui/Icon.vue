@@ -100,7 +100,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   size: '24',
-  class: ''
+  class: '',
 })
 
 const iconClass = computed(() => props.class)

@@ -17,5 +17,3 @@ export const useProjectStore = defineStore('project', () => {
 
   return { state, fetchBySlug }
 })
-
-

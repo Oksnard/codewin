@@ -24,19 +24,19 @@
 
 <script setup lang="ts">
 interface BreadcrumbItem {
-  text: string;
-  href?: string;
+  text: string
+  href?: string
 }
 
 interface Props {
-  items: BreadcrumbItem[];
-  ariaLabel?: string;
+  items: BreadcrumbItem[]
+  ariaLabel?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
-  ariaLabel: "Навигационная цепочка",
-});
+  ariaLabel: 'Навигационная цепочка',
+})
 </script>
 
 <style lang="scss" scoped>
@@ -69,10 +69,10 @@ const props = withDefaults(defineProps<Props>(), {
   &__text {
     color: $color-white;
     font-family:
-      "Gilroy",
+      'Gilroy',
       -apple-system,
       BlinkMacSystemFont,
-      "Segoe UI",
+      'Segoe UI',
       Roboto,
       sans-serif;
     font-size: 16px;

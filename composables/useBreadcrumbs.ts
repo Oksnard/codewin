@@ -9,13 +9,13 @@ export const useBreadcrumbs = () => {
 
     breadcrumbs.push({
       text: 'Главная',
-      href: '/'
+      href: '/',
     })
 
     if (route.name === 'project' && route.params.slug) {
       breadcrumbs.push({
         text: 'Проекты',
-        href: '/projects'
+        href: '/projects',
       })
 
       const slug = route.params.slug as string
@@ -23,21 +23,21 @@ export const useBreadcrumbs = () => {
         const project = await projectStore.fetchBySlug(slug)
         breadcrumbs.push({
           text: project.title,
-          href: undefined
+          href: undefined,
         })
       } catch (error) {
         breadcrumbs.push({
           text: slug,
-          href: undefined
+          href: undefined,
         })
       }
     } else if (route.path.startsWith('/projects')) {
       breadcrumbs.push({
         text: 'Проекты',
-        href: undefined
+        href: undefined,
       })
     } else if (route.path !== '/') {
-      const pathSegments = route.path.split('/').filter(segment => segment !== '')
+      const pathSegments = route.path.split('/').filter((segment) => segment !== '')
       let currentPath = ''
 
       pathSegments.forEach((segment, index) => {
@@ -45,12 +45,12 @@ export const useBreadcrumbs = () => {
 
         const readableText = segment
           .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ')
 
         breadcrumbs.push({
           text: readableText,
-          href: index === pathSegments.length - 1 ? undefined : currentPath
+          href: index === pathSegments.length - 1 ? undefined : currentPath,
         })
       })
     }
@@ -60,11 +60,15 @@ export const useBreadcrumbs = () => {
 
   const breadcrumbs = ref<BreadcrumbItem[]>([])
 
-  watch(() => route.path, async () => {
-    breadcrumbs.value = await generateBreadcrumbs()
-  }, { immediate: true })
+  watch(
+    () => route.path,
+    async () => {
+      breadcrumbs.value = await generateBreadcrumbs()
+    },
+    { immediate: true }
+  )
 
   return {
-    breadcrumbs: readonly(breadcrumbs)
+    breadcrumbs: readonly(breadcrumbs),
   }
 }

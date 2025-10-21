@@ -60,41 +60,41 @@ header.header
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
-const isMobileMenuOpen = ref(false);
+const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value;
-};
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
 
 const handleCtaClick = () => {
-  console.log("CTA button clicked");
-};
+  console.log('CTA button clicked')
+}
 
 watch(
   () => router.currentRoute.value.path,
   () => {
-    isMobileMenuOpen.value = false;
+    isMobileMenuOpen.value = false
   }
-);
+)
 
 const handleEscape = (e: KeyboardEvent) => {
-  if (e.key === "Escape") {
-    isMobileMenuOpen.value = false;
+  if (e.key === 'Escape') {
+    isMobileMenuOpen.value = false
   }
-};
+}
 
 onMounted(() => {
-  document.addEventListener("keydown", handleEscape);
-});
+  document.addEventListener('keydown', handleEscape)
+})
 
 onUnmounted(() => {
-  document.removeEventListener("keydown", handleEscape);
-});
+  document.removeEventListener('keydown', handleEscape)
+})
 </script>
 
 <style lang="scss" scoped>

@@ -5,12 +5,12 @@ p.block-paragraph(v-html="block.data.text")
 <script setup lang="ts">
 defineProps<{
   block: {
-    id: string;
+    id: string
     data: {
-      text: string;
-    };
-  };
-}>();
+      text: string
+    }
+  }
+}>()
 </script>
 
 <style lang="scss" scoped>

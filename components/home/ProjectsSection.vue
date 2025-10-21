@@ -3,7 +3,12 @@
     <div class="container">
       <h2 class="projects__title">Проекты</h2>
       <div class="projects__grid">
-        <NuxtLink v-for="project in contentStore.state.projects" :key="project.id" :to="`/projects/${project.slug}`" class="projects__card">
+        <NuxtLink
+          v-for="project in contentStore.state.projects"
+          :key="project.id"
+          :to="`/projects/${project.slug}`"
+          class="projects__card"
+        >
           <div class="projects__image">
             <img :src="getProjectImage(project)" :alt="project.title" loading="lazy" />
           </div>

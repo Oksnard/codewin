@@ -12,22 +12,20 @@ section.project-description
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import type { ApiProjectDetail, ProjectDescriptionBlock } from "@/types/api";
+import { computed } from 'vue'
+import type { ApiProjectDetail, ProjectDescriptionBlock } from '@/types/api'
 
 const props = defineProps<{
-  project: ApiProjectDetail;
-}>();
+  project: ApiProjectDetail
+}>()
 
 const blocks = computed<ProjectDescriptionBlock[]>(() => {
-  return (
-    (props.project?.description?.blocks as ProjectDescriptionBlock[]) || []
-  );
-});
+  return (props.project?.description?.blocks as ProjectDescriptionBlock[]) || []
+})
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/scss/abstracts/_mixins" as *;
+@use '@/assets/scss/abstracts/_mixins' as *;
 
 .project {
   &__article {

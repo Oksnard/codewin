@@ -119,6 +119,3 @@ defineProps<{ projects: ApiProjectCard[] }>()
   }
 }
 </style>
-
-
-

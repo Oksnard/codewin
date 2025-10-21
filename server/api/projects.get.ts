@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     throw createError({
       statusCode: 502,
-      statusMessage: 'Failed to fetch projects from API'
+      statusMessage: 'Failed to fetch projects from API',
     })
   }
 })
